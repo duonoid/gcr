@@ -107,7 +107,7 @@ class GCR::Cassette
       def request_response(*args)
         request_proto = args[1]
         GCR.cassette.reqs.each do |other_req, resp|
-          return resp.to_proto if request_proto == other_req.to_proto.last
+          return resp.to_proto if request_proto.to_s == other_req.to_proto.last.to_s
         end
         raise GCR::NoRecording
       end
