@@ -105,9 +105,9 @@ class GCR::Cassette
       alias_method :orig_request_response, :request_response
 
       def request_response(*args)
-        req = GCR::Request.from_proto(*args)
+        request_proto = args[1]
         GCR.cassette.reqs.each do |other_req, resp|
-          return resp.to_proto if req == other_req
+          return resp.to_proto if request_proto == other_req.to_proto.last
         end
         raise GCR::NoRecording
       end
