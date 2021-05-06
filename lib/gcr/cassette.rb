@@ -97,7 +97,6 @@ class GCR::Cassette
     GCR.stubs.each do |klass|
       klass.class_eval do
         alias_method :request_response, :orig_request_response
-        undef :orig_request_response
       end if klass.respond_to?(:orig_request_response)
     end
     save
@@ -125,7 +124,6 @@ class GCR::Cassette
     GCR.stubs.each do |klass|
       klass.class_eval do
         alias_method :request_response, :orig_request_response
-        undef :orig_request_response
       end if klass.respond_to?(:orig_request_response)
     end
   end
