@@ -1,10 +1,12 @@
 require "json"
+require "set"
 
 module GCR
   Error = Class.new(StandardError)
   ConfigError = Class.new(Error)
   RunningError = Class.new(Error)
   NoRecording = Class.new(Error)
+  NoCassette = Class.new(Error)
 
   # Ignore these fields when matching requests.
   #
@@ -37,6 +39,11 @@ module GCR
   # Returns a String path to a directory. Raises ConfigError if not configured.
   def cassette_dir
     @cassette_dir || (raise ConfigError, "no cassette dir configured")
+  end
+
+  def reset_stubs
+    @stub = nil
+    @stubs = nil
   end
 
   # Specify the stub to intercept calls to.
